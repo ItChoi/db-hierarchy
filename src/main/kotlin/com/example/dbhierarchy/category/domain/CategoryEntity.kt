@@ -7,9 +7,8 @@ import jakarta.persistence.*
 class CategoryEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long,
+    var id: Long?,
     var name: String,
     var depth: Int,
     var displayOrder: Int,
-
 )
