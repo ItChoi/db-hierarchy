@@ -3,7 +3,6 @@ package com.example.dbhierarchy.category.controller
 import com.example.dbhierarchy.category.domain.dto.request.CategoryRequest
 import com.example.dbhierarchy.category.service.CategoryService
 import lombok.RequiredArgsConstructor
-import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -39,7 +38,7 @@ class CategoryController(
          * 추가1:
          *
          */
-        categoryService.put(requests)
+        categoryService.recreateCategoryClosures(requests)
     }
 
 

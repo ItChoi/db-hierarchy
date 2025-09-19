@@ -7,4 +7,6 @@ class CategoryRequest(
     var depth: Int,
     var displayOrder: Int,
     var categories: List<CategoryRequest>?
+
+
 )

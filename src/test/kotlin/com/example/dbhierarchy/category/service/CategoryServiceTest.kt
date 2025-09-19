@@ -108,7 +108,7 @@ class CategoryServiceTest() {
 
     @Test
     @DisplayName("put: 예외 없이 동작한다(내부적으로 extractAllCategoryIds와 create 호출)")
-    fun put_runs_withoutException() {
+    fun recreateCategoryClosures_runs_withoutException() {
         // given
         val sut = service()
         val reqs = listOf(
@@ -116,7 +116,7 @@ class CategoryServiceTest() {
         )
 
         // when / then
-        assertDoesNotThrow { sut.put(reqs) }
+        assertDoesNotThrow { sut.recreateCategoryClosures(reqs) }
     }
 }
 // ... existing code ...
