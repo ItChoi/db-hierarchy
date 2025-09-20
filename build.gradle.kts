@@ -4,6 +4,7 @@ plugins {
     id("org.springframework.boot") version "3.5.5"
     id("io.spring.dependency-management") version "1.1.7"
     kotlin("plugin.jpa") version "1.9.25"
+    kotlin("kapt") version "1.9.25"
 }
 
 group = "com.example"
@@ -31,6 +32,14 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+    // QueryDSL
+    implementation("com.querydsl:querydsl-jpa:5.1.0:jakarta")
+//    implementation("com.querydsl:querydsl-kotlin:1.1.1")
+    kapt("com.querydsl:querydsl-apt:5.1.0:jakarta")
+//    kapt("jakarta.annotation:jakarta.annotation-api:2.1.1")
+//    kapt("jakarta.persistence:jakarta.persistence-api:3.1.0")
+
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("com.mysql:mysql-connector-j")
     annotationProcessor("org.projectlombok:lombok")
@@ -42,6 +51,13 @@ dependencies {
 kotlin {
     compilerOptions {
         freeCompilerArgs.addAll("-Xjsr305=strict")
+    }
+}
+
+// 생성된 Q타입 소스 디렉토리(선택적)
+sourceSets {
+    val main by getting {
+        java.srcDir("build/generated/source/kapt/main")
     }
 }
 

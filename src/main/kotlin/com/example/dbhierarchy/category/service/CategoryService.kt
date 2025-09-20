@@ -3,13 +3,15 @@ package com.example.dbhierarchy.category.service
 import com.example.dbhierarchy.category.domain.CategoryClosureEntity
 import com.example.dbhierarchy.category.domain.CategoryEntity
 import com.example.dbhierarchy.category.domain.dto.request.CategoryRequest
+import com.example.dbhierarchy.category.domain.dto.request.CategorySearch
+import com.example.dbhierarchy.category.domain.dto.response.CategoryResponse
 import com.example.dbhierarchy.category.repository.CategoryClosureRepository
 import com.example.dbhierarchy.category.repository.CategoryRepository
 import lombok.RequiredArgsConstructor
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
 class CategoryService(
@@ -17,11 +19,12 @@ class CategoryService(
     private val categoryClosureRepository: CategoryClosureRepository,
 ) {
 
+    @Transactional
     fun recreateCategoryClosures(
         requests: List<CategoryRequest>
     ) {
         categoryClosureRepository.deleteAll()
-        for (request in requests.orEmpty()) {
+        for (request in requests) {
             replaceAllCategories(null, request)
         }
     }
@@ -72,6 +75,11 @@ class CategoryService(
         )
     }
 
+    fun findAllBy(
+        categorySearch: CategorySearch?
+    ): List<CategoryResponse> {
+        return categoryRepository.findAllBy(categorySearch)
+    }
 
 
 }
