@@ -1,7 +1,6 @@
 package com.example.dbhierarchy.category.controller
 
 import com.example.dbhierarchy.category.domain.dto.request.CategoryRequest
-import com.example.dbhierarchy.category.domain.dto.request.CategorySearch
 import com.example.dbhierarchy.category.domain.dto.response.CategoryResponse
 import com.example.dbhierarchy.category.service.CategoryService
 import lombok.RequiredArgsConstructor
@@ -28,9 +27,9 @@ class CategoryController(
 
     @GetMapping
     fun findCategories(
-        categorySearch: CategorySearch?
+        depth: Int = 1
     ): ResponseEntity<List<CategoryResponse>> {
-        return ResponseEntity.ok(categoryService.findAllBy(categorySearch))
+        return ResponseEntity.ok(categoryService.findAllByDepth(depth))
     }
 
 

@@ -3,7 +3,6 @@ package com.example.dbhierarchy.category.service
 import com.example.dbhierarchy.category.domain.CategoryClosureEntity
 import com.example.dbhierarchy.category.domain.CategoryEntity
 import com.example.dbhierarchy.category.domain.dto.request.CategoryRequest
-import com.example.dbhierarchy.category.domain.dto.request.CategorySearch
 import com.example.dbhierarchy.category.domain.dto.response.CategoryResponse
 import com.example.dbhierarchy.category.repository.CategoryClosureRepository
 import com.example.dbhierarchy.category.repository.CategoryRepository
@@ -75,10 +74,10 @@ class CategoryService(
         )
     }
 
-    fun findAllBy(
-        categorySearch: CategorySearch?
+    fun findAllByDepth(
+        depth: Int,
     ): List<CategoryResponse> {
-        return categoryRepository.findAllBy(categorySearch)
+        return categoryRepository.findAllByDepth(depth)
     }
 
 
