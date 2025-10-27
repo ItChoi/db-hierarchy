@@ -65,7 +65,7 @@ class CategoryRepositoryCustomImpl(
                 .and(c3.depth.eq(c2.depth.subtract(1))))
             .where(c1.depth.eq(1))
             .orderBy(c2.depth.asc(), c2.displayOrder.asc())
-        //ㅅㄷㄴㅅ
+        //test
         return emptyList()
     }
 }
