@@ -4,6 +4,7 @@ import com.example.dbhierarchy.category.domain.QCategoryClosureEntity as categor
 import com.example.dbhierarchy.category.domain.QCategoryEntity as category
 import com.example.dbhierarchy.category.domain.dto.request.CategorySearch
 import com.example.dbhierarchy.category.domain.dto.response.CategoryResponse
+import com.querydsl.core.types.Projections
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.stereotype.Repository
 import kotlin.io.path.name
@@ -45,11 +46,26 @@ class CategoryRepositoryCustomImpl(
                 AND c3.depth = c2.depth - 1
         WHERE c1.depth = 1
         ORDER BY c2.depth, c2.display_order;*/
-//        return queryFactory
-//            .select()
-//            .from()
+        queryFactory
+            .select(
+                Projections.fields(
+                    CategoryResponse::class.java
 
-        TODO()
+                )
+            )
+            .from(c1)
+            .innerJoin(cc1)
+            .on(cc1.ancestor.eq(c1.id))
+            .innerJoin(c2)
+            .on(c2.id.eq(cc1.descendant))
+            .innerJoin(cc2)
+            .on(cc2.descendant.eq(c2.id))
+            .innerJoin(c3)
+            .on(c3.id.eq(cc2.ancestor)
+                .and(c3.depth.eq(c2.depth.subtract(1))))
+            .where(c1.depth.eq(1))
+            .orderBy(c2.depth.asc(), c2.displayOrder.asc())
 
+        return emptyList()
     }
 }
